@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenido</title>
+</head>
+<body>
+<div th:fragment="bienvenido" class="d-flex justify-content-center align-items-center">
+    <span class="nav-link">Bienvenido, <b th:text="${#authentication.name}">Usuario</b></span>
+    <a href="#" id="logoutEnlace" onclick="document.getElementById('formLogOut').submit()"><i class="bi bi-box-arrow-right text-primary fs-3"></i></a>
+    <form th:action="@{/logout}" method="post" id="formLogOut"></form>
+</div>
+</body>
+</html>

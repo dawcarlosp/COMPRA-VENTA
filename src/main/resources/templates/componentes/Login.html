@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <form class="d-flex justify-content-between" th:action="@{/}" method="post" th:fragment="login">
+        <div class=" px-2">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" placeholder="email">
+        </div>
+        <div class=" px-2">
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="password">
+        </div>
+        <div class="px-2 w-100">
+            <button type="submit" class="btn btn-primary" value="Log in">Login</button>
+            <a th:href="@{/usuarios/new}" class="btn btn-success" value="Log in">Crear cuenta nueva</a>
+        </div>
+    </form>
+
+</body>
+</html>

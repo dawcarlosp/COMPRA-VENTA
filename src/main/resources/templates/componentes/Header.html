@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header</title>
+</head>
+<body>
+<header th:fragment="header" >
+  <nav class="navbar navbar-expand-lg navbar-collapse bg-info" th:style="'min-height: 80px'">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegación">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse w-100 align-content-between justify-content-between" id="navbarNav">
+      <ul class="navbar-nav w-100 align-items-center justify-content-center">
+        <li class="nav-item active" th:if="${!#authentication.name.equalsIgnoreCase('anonymousUser')}">
+          <select class="form-select nav-item bg-primary text-light" aria-label="Default select example" onchange="location.href = '/' +this.value">
+            <option value="-1" selected>Filtrar</option>
+            <option value="misAnuncios">Mis Anuncios</option>
+            <option value="">Anuncios</option>
+          </select>
+        </li>
+      </ul>
+      <ul class="navbar-nav w-100 align-items-center justify-content-center">
+        <li th:if="${#authentication.name.equalsIgnoreCase('anonymousUser')}">
+          <form th:replace="~{componentes/Login :: login}"></form>
+        </li>
+
+        <li th:if="${!#authentication.name.equalsIgnoreCase('anonymousUser')}">
+          <div  th:replace="~{componentes/Bienvenido :: bienvenido}"></div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+</body>
+</html>

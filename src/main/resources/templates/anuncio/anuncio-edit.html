@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/images/favicon.png}" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/anuncio-new.css}">
+    <script src="https://kit.fontawesome.com/672cc63c77.js" crossorigin="anonymous"></script>
+    <title>Editar anuncio</title>
+</head>
+<body class="d-flex justify-content-center">
+<form class="d-flex flex-column mt-2" th:action="@{/anuncios/edit/{id}(id=${anuncio.id})}" method="post" enctype="multipart/form-data" th:object="${anuncio}">
+    <div class=" px-2">
+        <input type="text" class="form-control" id="titulo" aria-describedby="titulo" name="titulo" placeholder="titulo"
+        th:field="*{titulo}">
+    </div>
+    <div class=" px-2">
+        <input type="number" class="form-control" id="precio" name="precio" placeholder="precio" step="0.5"
+        th:field="*{precio}">
+    </div>
+    <div class=" px-2">
+        <textarea  class="form-control" id="descripcion" name="descripcion" placeholder="descripcion"
+        th:field="*{descripcion}"></textarea>
+    </div>
+    <div class="foto-container">
+        <div th:each="foto : ${anuncio.fotosAnuncio}"
+             class="foto"
+             th:style="'background-image: url(/imagesAnuncios/' + ${foto.nombre} + ');'">
+            <a th:href="@{/anuncios/{id1}/fotos/{id2}/delete(id1=${anuncio.id}, id2=${foto.id})}" class="cruz-delete-foto">X</a>
+        </div>
+        <div class="foto" id="nuevaFoto">
+            <i class="fa-regular fa-image"></i>
+        </div>
+    </div>
+    <br>
+    <input type="submit" value="modificar" class="btn btn-primary">
+</form>
+<form th:action="@{/anuncios/edit/{id}/addfoto(id=${anuncio.id})}" method="post" enctype="multipart/form-data" id="formulario-add-foto">
+    <input type="file" name="archivoFoto" class="file-input" id="nuevoArchivo">
+</form>
+</body>
+<script th:src="@{/js/anuncio-edit.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>

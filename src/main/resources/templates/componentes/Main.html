@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<main class="container d-flex flex-column align-items-center mb-3">
+    <!-- Fragmento principal que itera los anuncios -->
+    <div th:each="anuncio : ${anuncios}" class="w-50 d-flex flex-column align-items-center border border-info rounded-5 mt-2"
+         th:classappend="${anuncio.usuario.email.equalsIgnoreCase(#authentication.name) ? 'bg-info' : ''}">
+        <img th:src="@{'imagesAnuncios/'+${anuncio.getPrimeraFoto().getNombre()}}" class="w-50 mt-5 rounded-4">
+        <h3 th:text="${anuncio.titulo}"></h3>
+        <p th:text="${anuncio.precio} + '€'"></p>
+        <div class="d-flex flex-row" th:if="${anuncio.usuario.email.equalsIgnoreCase(#authentication.name)}">
+            <a th:href="@{/anuncios/edit/{id}(id=${anuncio.id})}"><i class="bi bi-pencil-square fs-1 text-primary"></i></a>
+            <a><i class="bi bi-trash3-fill fs-1 text-danger"></i></a>
+            <a th:href="@{/anuncios/view/{id}(id=${anuncio.id})}"><i class="bi bi-eye-fill fs-1 text-primary"></i></a>
+        </div>
+    </div>
+
+    <!-- Controles de paginación -->
+    <div class="pagination mt-3 mb-3">
+        <!-- Página anterior -->
+        <a th:if="${paginaActual > 0}"
+           th:href="@{/(pagina=${paginaActual - 1})}" class="btn btn-primary me-2">Anterior</a>
+
+        <!-- Información de la página actual -->
+        <span class="btn btn-light">Página [[${paginaActual + 1}]] de [[${totalPaginas}]]</span>
+
+        <!-- Página siguiente -->
+        <a th:if="${hasNext}"
+           th:href="@{/(pagina=${paginaActual + 1})}" class="btn btn-primary ms-2">Siguiente</a>
+    </div>
+</main>
+</body>
+</html>

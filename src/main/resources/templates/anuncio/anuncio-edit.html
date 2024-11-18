@@ -10,7 +10,7 @@
     <script src="https://kit.fontawesome.com/672cc63c77.js" crossorigin="anonymous"></script>
     <title>Editar anuncio</title>
 </head>
-<body class="d-flex justify-content-center w-75 w-md-25">
+<body class="d-flex justify-content-center">
 <form class="w-75 w-md-25 d-flex flex-column mt-2" th:action="@{/anuncios/edit/{id}(id=${anuncio.id})}" method="post" enctype="multipart/form-data" th:object="${anuncio}">
     <div class="d-flex flex-row mb-3">
         <input type="text" class="form-control" id="titulo" aria-describedby="titulo" name="titulo" placeholder="titulo"
@@ -37,7 +37,7 @@
         </div>
     </div>
     <br>
-    <input type="submit" value="modificar" class="btn btn-primary">
+    <input type="submit" value="modificar" class="btn btn-primary w-25">
 </form>
 <form th:action="@{/anuncios/edit/{id}/addfoto(id=${anuncio.id})}" method="post" enctype="multipart/form-data" id="formulario-add-foto">
     <input type="file" name="archivoFoto" class="file-input" id="nuevoArchivo">

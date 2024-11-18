@@ -10,15 +10,17 @@
         .carousel-inner img {
             object-fit: cover;
             width: 100%;
-            height: 500px; /* Ajusta la altura deseada para el carrusel */
+            height: 400px; /* Ajusta la altura deseada para el carrusel */
         }
         .carousel {
-            max-width: 800px; /* Ajusta el ancho máximo del carrusel */
+            max-width: 500px; /* Ajusta el ancho máximo del carrusel */
             margin: auto;
         }
     </style>
 </head>
-<body class="d-flex justify-content-center">
+<body class="d-flex flex-column align-items-center">
+<h1 th:text="${anuncio.titulo}"></h1>
+<p th:text="${anuncio.descripcion}"></p>
 <div id="carouselExampleCaptions" class="carousel slide mt-2">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -29,21 +31,23 @@
         <div th:each="foto, iterStat : ${fotos}"
              th:classappend="${iterStat.index == 0} ? 'carousel-item active' : 'carousel-item'">
             <img th:src="@{/imagesAnuncios/{nombre}(nombre=${foto.nombre})}" class="d-block w-100" alt="Foto anuncio">
-            <div class="carousel-caption d-none d-md-block">
-                <h5 th:text="'Label ' + (${iterStat.index + 1})"></h5>
-                <p th:text="'Some representative placeholder content for slide ' + (${iterStat.index + 1})"></p>
+            <div class="carousel-caption d-none d-md-block text-info">
+                <h5 th:text="'Imagen ' + (${iterStat.index + 1})"></h5>
+                <p th:text="(${iterStat.index + 1}) + ' de ' + (${iterStat.count + 1}) "></p>
             </div>
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
+        <span class="visually-hidden">Anterior</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
+        <span class="visually-hidden">Siguiente</span>
     </button>
 </div>
+<p>Anuncio publicado por <b th:text="${anuncio.getUsuario().getNombre()}"></b>
+<br>El día: <i th:text="${anuncio.getFechaCreacion()}"></i></p>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>

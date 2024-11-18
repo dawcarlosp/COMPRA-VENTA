@@ -10,22 +10,24 @@
     <script src="https://kit.fontawesome.com/672cc63c77.js" crossorigin="anonymous"></script>
     <title>Editar anuncio</title>
 </head>
-<body class="d-flex justify-content-center">
-<form class="d-flex flex-column mt-2" th:action="@{/anuncios/edit/{id}(id=${anuncio.id})}" method="post" enctype="multipart/form-data" th:object="${anuncio}">
-    <div class=" px-2">
+<body class="d-flex justify-content-center w-75 w-md-25">
+<form class="w-75 w-md-25 d-flex flex-column mt-2" th:action="@{/anuncios/edit/{id}(id=${anuncio.id})}" method="post" enctype="multipart/form-data" th:object="${anuncio}">
+    <div class="d-flex flex-row mb-3">
         <input type="text" class="form-control" id="titulo" aria-describedby="titulo" name="titulo" placeholder="titulo"
         th:field="*{titulo}">
+        <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="alert alert-warning mx-1"></span>
     </div>
-    <div class=" px-2">
+    <div class="d-flex flex-row mb-3">
         <input type="number" class="form-control" id="precio" name="precio" placeholder="precio" step="0.5"
         th:field="*{precio}">
+        <span th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}" class="alert alert-warning mx-1"></span>
     </div>
-    <div class=" px-2">
+    <div class="d-flex mb-3">
         <textarea  class="form-control" id="descripcion" name="descripcion" placeholder="descripcion"
         th:field="*{descripcion}"></textarea>
     </div>
     <div class="foto-container">
-        <div th:each="foto : ${anuncio.fotosAnuncio}"
+        <div th:each="foto : ${fotos}"
              class="foto"
              th:style="'background-image: url(/imagesAnuncios/' + ${foto.nombre} + ');'">
             <a th:href="@{/anuncios/{id1}/fotos/{id2}/delete(id1=${anuncio.id}, id2=${foto.id})}" class="cruz-delete-foto">X</a>

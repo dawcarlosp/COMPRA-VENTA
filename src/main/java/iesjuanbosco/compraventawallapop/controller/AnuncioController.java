@@ -1,6 +1,7 @@
 package iesjuanbosco.compraventawallapop.controller;
 
 import iesjuanbosco.compraventawallapop.entity.Anuncio;
+import iesjuanbosco.compraventawallapop.entity.FotoAnuncio;
 import iesjuanbosco.compraventawallapop.entity.Usuario;
 import iesjuanbosco.compraventawallapop.repository.AnuncioRepository;
 import iesjuanbosco.compraventawallapop.service.AnuncioService;
@@ -49,8 +50,10 @@ public class AnuncioController {
     public String editAnuncioView(@PathVariable Long id, Model model) {
         Optional<Anuncio> anuncio = anuncioRepository.findById(id);
         Usuario usuario = this.usuarioService.getAutenticado();
+        List<FotoAnuncio> fotos = anuncioRepository.findById(id).get().getFotosAnuncio();
         if(anuncio.isPresent() && usuario.getId() == anuncio.get().getUsuario().getId()) {
             model.addAttribute("anuncio", anuncio.get());
+            model.addAttribute("fotos", fotos);
             return "anuncio/anuncio-edit";
         }else{
             return "redirect:/";
@@ -58,9 +61,12 @@ public class AnuncioController {
     }
     @PostMapping("anuncios/edit/{id}")
     public String editAnuncio(@PathVariable Long id,@Valid Anuncio anuncio, BindingResult bindingResult, Model model) {
+        List<FotoAnuncio> fotos = anuncioRepository.findById(id).get().getFotosAnuncio();
         Anuncio auxiliar = this.anuncioRepository.findById(id).get();
         anuncio.setFechaCreacion(auxiliar.getFechaCreacion());
         if(bindingResult.hasErrors()) {
+            model.addAttribute("fotos",fotos);
+            model.addAttribute("anuncio", anuncio);
             return "anuncio/anuncio-edit";
         }else{
             this.anuncioService.saveAnuncio(anuncio);

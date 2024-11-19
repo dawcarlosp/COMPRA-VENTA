@@ -19,7 +19,7 @@
     </style>
 </head>
 <body class="d-flex flex-column align-items-center">
-<h1 th:text="${anuncio.titulo}"></h1>
+<h3 th:text="${anuncio.titulo}"></h3>
 <p th:text="${anuncio.descripcion}"></p>
 <div id="carouselExampleCaptions" class="carousel slide mt-2">
     <div class="carousel-indicators">
@@ -31,10 +31,6 @@
         <div th:each="foto, iterStat : ${fotos}"
              th:classappend="${iterStat.index == 0} ? 'carousel-item active' : 'carousel-item'">
             <img th:src="@{/imagesAnuncios/{nombre}(nombre=${foto.nombre})}" class="d-block w-100" alt="Foto anuncio">
-            <div class="carousel-caption d-none d-md-block text-info">
-                <h5 th:text="'Imagen ' + (${iterStat.index + 1})"></h5>
-                <p th:text="(${iterStat.index + 1}) + ' de ' + (${iterStat.count + 1}) "></p>
-            </div>
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">

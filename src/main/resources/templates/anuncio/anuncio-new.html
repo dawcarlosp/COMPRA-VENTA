@@ -10,7 +10,8 @@
   <link rel="stylesheet" th:href="@{/css/anuncio-new.css}">
   <title>Alta anuncio</title>
 </head>
-<body class="d-flex justify-content-center">
+<body class="d-flex flex-column align-items-center">
+<h3>Alta anuncio</h3>
 <form class="d-flex flex-column mt-2 w-75 w-md-25" th:action="@{/anuncios/new}" method="post" enctype="multipart/form-data" th:object="${anuncio}">
   <div class="mb-3 d-flex flex-colum">
     <input type="text" class="form-control" id="titulo" aria-describedby="titulo" name="titulo" placeholder="titulo">
@@ -29,9 +30,7 @@
       <input type="file" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
     </div>
   </div>
-<p>Prueba git</p>
-
-
+  
   <div class="mt-2 d-flex flex-column">
     <button type="submit" class="btn btn-primary w-25" value="Log in">Publicar</button>
     <a th:href="@{/}" class="btn btn-success mt-2 w-25" value="Log in"><i class="bi bi-arrow-return-left"></i></a>

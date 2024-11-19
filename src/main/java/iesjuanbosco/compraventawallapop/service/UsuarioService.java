@@ -30,10 +30,14 @@ public class UsuarioService {
     public Optional<Usuario> getUsuarioByUsername(String username){
         return this.usuarioRepository.findByEmail(username);
     }
-    public Usuario getAutenticado(){
+    public Usuario getAutenticado() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        return this.usuarioRepository.findByEmail(username).get();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Optional<Usuario> usuarioOptional = this.usuarioRepository.findByEmail(username);
+            return usuarioOptional.orElse(null);
+        }
+        return null;
     }
     public boolean getAutenticadoEstado(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

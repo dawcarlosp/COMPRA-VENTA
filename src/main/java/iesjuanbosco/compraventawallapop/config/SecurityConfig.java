@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/*").permitAll()
-                        .requestMatchers("/anuncios/view/*").permitAll()
+                        .requestMatchers("/anuncios/view/**").permitAll()
                         .requestMatchers("/anuncios/**").hasRole("USER")
                         .anyRequest().permitAll()   /* Por ejemplo para la URL "/productos/new" habría que estar autenticado con cualquier ROL */
                 )

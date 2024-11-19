@@ -34,14 +34,24 @@ public class AnuncioController {
     private UsuarioService usuarioService;
     @Autowired
     private FotoAnuncioService fotoAnuncioService;
+
+    @GetMapping("/anuncios/del/{id}")
+    public String deleteAnuncio(@PathVariable Long id){
+        this.anuncioService.deleteAnuncioById(id);
+        return "redirect:/";
+    }
     @GetMapping("/anuncios/view/{id}")
     public String viewAnuncio(Model model,@PathVariable Long id){
         Optional<Anuncio> anuncio = this.anuncioRepository.findById(id);
         Usuario usuario = this.usuarioService.getAutenticado();
         if(anuncio.isPresent()){
             model.addAttribute("anuncio", anuncio.get());
-            model.addAttribute("usuario",usuario);
             model.addAttribute("fotos", anuncio.get().getFotosAnuncio());
+            if(usuario != null) {
+                model.addAttribute("usuario", usuario);
+            }else{
+                model.addAttribute("usuario", new Usuario());
+            }
             return "anuncio/anuncio-view";
         }else{
             return "redirect:/";
@@ -71,7 +81,7 @@ public class AnuncioController {
             model.addAttribute("anuncio", anuncio);
             return "anuncio/anuncio-edit";
         }else{
-            this.anuncioService.saveAnuncio(anuncio);
+            this.anuncioService.editAnuncio(anuncio);
             return "redirect:/";
         }
     }

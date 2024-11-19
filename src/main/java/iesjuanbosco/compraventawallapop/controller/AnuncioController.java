@@ -37,8 +37,10 @@ public class AnuncioController {
     @GetMapping("/anuncios/view/{id}")
     public String viewAnuncio(Model model,@PathVariable Long id){
         Optional<Anuncio> anuncio = this.anuncioRepository.findById(id);
+        Usuario usuario = this.usuarioService.getAutenticado();
         if(anuncio.isPresent()){
             model.addAttribute("anuncio", anuncio.get());
+            model.addAttribute("usuario",usuario);
             model.addAttribute("fotos", anuncio.get().getFotosAnuncio());
             return "anuncio/anuncio-view";
         }else{

@@ -1,5 +1,6 @@
 package iesjuanbosco.compraventawallapop.repository;
 import iesjuanbosco.compraventawallapop.entity.Anuncio;
+import iesjuanbosco.compraventawallapop.entity.Categoria;
 import iesjuanbosco.compraventawallapop.entity.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,4 +13,5 @@ import java.util.List;
 public interface AnuncioRepository extends JpaRepository <Anuncio,Long> {
     Page<Anuncio> findAllByOrderByFechaCreacionDesc(Pageable pageable);
     Page<Anuncio> findByUsuarioOrderByFechaCreacionDesc(Usuario usuario, Pageable pageable);
+    Page<Anuncio> findByCategoriasOrderByFechaCreacionDesc(Categoria categoria, Pageable pageable);
 }

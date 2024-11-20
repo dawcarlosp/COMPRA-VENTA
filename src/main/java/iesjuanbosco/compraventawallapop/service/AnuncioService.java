@@ -1,6 +1,7 @@
 package iesjuanbosco.compraventawallapop.service;
 
 import iesjuanbosco.compraventawallapop.entity.Anuncio;
+import iesjuanbosco.compraventawallapop.entity.Categoria;
 import iesjuanbosco.compraventawallapop.entity.Usuario;
 import iesjuanbosco.compraventawallapop.repository.AnuncioRepository;
 
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class AnuncioService {
+    @Autowired
+    private CategoriaService categoriaService;
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
@@ -42,5 +46,10 @@ public class AnuncioService {
     public Page<Anuncio> listarPaginasUsuario(Usuario usuario,int numeroPagina, int tamanioPagina){
         Pageable pageable =  PageRequest.of(numeroPagina, tamanioPagina);
         return this.anuncioRepository.findByUsuarioOrderByFechaCreacionDesc(usuario, pageable);
+    }
+    public Page<Anuncio> listarPaginasCategoria(Long id, int numeroPagina, int tamanioPagina){
+        Optional<Categoria> categoria = this.categoriaService.findById(id);
+        Pageable pageable =  PageRequest.of(numeroPagina, tamanioPagina);
+        return this.anuncioRepository.findByCategoriasOrderByFechaCreacionDesc(categoria.get(), pageable);
     }
 }

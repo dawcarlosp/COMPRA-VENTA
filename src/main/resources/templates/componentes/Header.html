@@ -1,47 +1,66 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Header</title>
 </head>
+
 <body>
-<header th:fragment="header" >
+<header th:fragment="header">
   <nav class="navbar navbar-expand-lg navbar-collapse bg-info" th:style="'min-height: 138px'">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegación">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegación">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse w-100 align-content-between justify-content-between" id="navbarNav">
-      <ul class="navbar-nav w-100 align-items-center justify-content-center">
-        <li>
-          <a th:href="@{/}"><i class="text-decoration-none bi bi-house-door-fill fs-1 text-primary mx-5"></i></a>
-        </li>
-        <li class="nav-item active">
-          <select class="form-select nav-item bg-primary text-light" aria-label="Default select example"
-                  name="categoria" id="categoria" onchange="location.href = '/'+this.value">
-            <option value="-1">Todas las categorias</option>
-            <option th:each="categoria : ${categorias}"
-                    th:value="${categoria.id}"
-                    th:text="${categoria.nombre}"
-                    th:selected="${categoria.id == selectedCategoriaId}">
-            </option>
-          </select>
-        </li>
-        <li class="nav-item active" th:block sec:authorize="isAuthenticated()">
-          <a class="btn btn-primary mx-1" th:href="@{/misAnuncios}">Mis anuncios</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav w-100 align-items-center justify-content-center">
-        <li th:block sec:authorize="isAnonymous()">
-          <form th:replace="~{componentes/Login :: login}"></form>
-        </li>
+    <div class="collapse navbar-collapse  align-content-between justify-content-between" id="navbarNav">
+      <div class="row">
+        <div class="col-lg-5 col-md-5">
+          <ul class="navbar-nav w-100 align-items-center">
+            <li>
+              <a th:href="@{/}"><i
+                      class="text-decoration-none bi bi-house-door-fill fs-1 text-primary mx-1"></i></a>
+            </li>
+            <li class="nav-item active">
+              <select class="form-select nav-item bg-primary text-light w-100"
+                      aria-label="Default select example" name="categoria" id="categoria"
+                      onchange="location.href = '/'+this.value">
+                <option value="-1">Todas las categorias</option>
+                <option th:each="categoria : ${categorias}" th:value="${categoria.id}"
+                        th:text="${categoria.nombre}"
+                        th:selected="${categoria.id == selectedCategoriaId}">
+                </option>
+              </select>
+            </li>
+            <li class="nav-item active" th:block sec:authorize="isAuthenticated()">
+              <a class="btn btn-primary mx-1" th:href="@{/misAnuncios}">Mis anuncios</a>
+            </li>
+            <li>
+              <form class="d-flex justify-content-between" th:action="@{/busqueda}" method="post">
+                <input type="text" class="form-control" id="valor" name="valor"
+                       placeholder="Buscar">
+                <button type="submit" class="btn btn-primary" value="Buscar"><i
+                        class="bi bi-search text-light"></i></button>
+              </form>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-7 col-md-7">
+          <ul class="navbar-nav w-100 align-items-center justify-content-center">
+            <li th:block sec:authorize="isAnonymous()">
+              <form th:replace="~{componentes/Login :: login}"></form>
+            </li>
 
-        <li th:block sec:authorize="isAuthenticated()">
-          <div  th:replace="~{componentes/Bienvenido :: bienvenido}"></div>
-        </li>
-      </ul>
+            <li th:block sec:authorize="isAuthenticated()">
+              <div th:replace="~{componentes/Bienvenido :: bienvenido}"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </nav>
 </header>
 </body>
+
 </html>

@@ -91,5 +91,20 @@ public class HomeController {
         model.addAttribute("AnunciosTotales",this.anuncioService.findAll().size());
         return "inicio";
     }
-
+    @PostMapping("/busqueda")
+    public String inicioBusqueda(Model model , @RequestParam(defaultValue = "0") int pagina, @RequestParam("valor") String valor){
+    Page<Anuncio> paginaAnuncios = this.anuncioService.listarPaginasFiltro(valor, pagina, HomeController.TAMANIO_PAGINA);
+    if(!paginaAnuncios.isEmpty()){
+        model.addAttribute("anuncios", paginaAnuncios.getContent());
+        model.addAttribute("categorias",this.categoriaService.findAll());
+        model.addAttribute("paginaActual", pagina);
+        model.addAttribute("totalPaginas", paginaAnuncios.getTotalPages());
+        model.addAttribute("hasNext", paginaAnuncios.hasNext());
+        model.addAttribute("hasPrevious", paginaAnuncios.hasPrevious());
+        model.addAttribute("AnunciosTotales",this.anuncioService.findAll().size());
+        return "inicio";
+    }else{
+        return "redirect:/";
+    }
+    }
 }

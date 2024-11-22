@@ -34,6 +34,8 @@
         <a th:if="${hasNext}"
            th:href="@{/(pagina=${paginaActual + 1})}" class="btn btn-primary ms-2">Siguiente</a>
     </div>
+    <div th:text="'Anuncios publicados: ' + ${AnunciosTotales}">
+    </div>
 </main>
 </body>
 </html>

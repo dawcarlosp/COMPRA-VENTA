@@ -43,6 +43,7 @@ public class HomeController {
         model.addAttribute("totalPaginas", paginaAnuncios.getTotalPages());
         model.addAttribute("hasNext", paginaAnuncios.hasNext());
         model.addAttribute("hasPrevious", paginaAnuncios.hasPrevious());
+        model.addAttribute("AnunciosTotales",this.anuncioService.findAll().size());
         return "inicio";
     }
     @GetMapping("/{id}")
@@ -72,6 +73,7 @@ public class HomeController {
             model.addAttribute("hasNext", paginaAnuncios.hasNext());
             model.addAttribute("hasPrevious", paginaAnuncios.hasPrevious());
             model.addAttribute("anuncios", paginaAnuncios.getContent());
+            model.addAttribute("AnunciosTotales",this.anuncioService.findAll().size());
             return "inicio";
         }
         return "redirect:/productos";
@@ -86,6 +88,7 @@ public class HomeController {
         model.addAttribute("hasNext", paginaAnuncios.hasNext());
         model.addAttribute("hasPrevious", paginaAnuncios.hasPrevious());
         model.addAttribute("usuario", this.usuarioService.getAutenticado());
+        model.addAttribute("AnunciosTotales",this.anuncioService.findAll().size());
         return "inicio";
     }
 

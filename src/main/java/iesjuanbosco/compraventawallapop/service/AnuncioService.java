@@ -53,4 +53,7 @@ public class AnuncioService {
         Pageable pageable =  PageRequest.of(numeroPagina, tamanioPagina);
         return this.anuncioRepository.findByCategoriasOrderByFechaCreacionDesc(categoria.get(), pageable);
     }
+    public List<Anuncio> findAll(){
+        return this.anuncioRepository.findAll();
+    }
 }

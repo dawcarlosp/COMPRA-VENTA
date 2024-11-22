@@ -5,9 +5,11 @@
     <title>Main</title>
 </head>
 <body>
-<main class="container d-flex flex-column align-items-center mb-3">
+<main class="container mb-3 d-flex flex-column align-items-center">
+    <div class="row">
+        <div class="col-10 col-md-5 col-lg-5 m-1" th:each="anuncio : ${anuncios}">
     <!-- Fragmento principal que itera los anuncios -->
-    <div th:each="anuncio : ${anuncios}" class="w-50 d-flex flex-column align-items-center border border-info rounded-5 mt-2">
+    <div  class="w-100 h-100 d-flex flex-column align-items-center justify-content-between border border-info rounded-5">
 
             <img th:src="@{'imagesAnuncios/'+${anuncio.getPrimeraFoto().getNombre()}}" class="w-50 mt-5 rounded-4">
     
@@ -16,9 +18,11 @@
             <a th:href="@{/anuncios/view/{id}(id=${anuncio.id})}"
             class="d-none ver-Anuncio"></a>
     </div>
+        </div>
 
+    </div>
     <!-- Controles de paginación -->
-    <div class="pagination mt-3 mb-3">
+    <div class="pagination mt-3 mb-3 text-center">
         <!-- Página anterior -->
         <a th:if="${paginaActual > 0}"
            th:href="@{/(pagina=${paginaActual - 1})}" class="btn btn-primary me-2">Anterior</a>

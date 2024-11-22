@@ -5,6 +5,7 @@ import iesjuanbosco.compraventawallapop.entity.FotoAnuncio;
 import iesjuanbosco.compraventawallapop.entity.Usuario;
 import iesjuanbosco.compraventawallapop.repository.AnuncioRepository;
 import iesjuanbosco.compraventawallapop.service.AnuncioService;
+import iesjuanbosco.compraventawallapop.service.CategoriaService;
 import iesjuanbosco.compraventawallapop.service.FotoAnuncioService;
 import iesjuanbosco.compraventawallapop.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -34,7 +35,8 @@ public class AnuncioController {
     private UsuarioService usuarioService;
     @Autowired
     private FotoAnuncioService fotoAnuncioService;
-
+    @Autowired
+    private CategoriaService categoriaService;
     @GetMapping("/anuncios/del/{id}")
     public String deleteAnuncio(@PathVariable Long id){
         this.anuncioService.deleteAnuncioById(id);
@@ -90,13 +92,16 @@ public class AnuncioController {
     public String newAnuncioView(Model model) {
         model.addAttribute("anuncio", new Anuncio());
         model.addAttribute("usuario", this.usuarioService.getAutenticado());
+        model.addAttribute("categorias", this.categoriaService.findAll());
+        model.addAttribute("fotoDefault", "/images/galeria.png");
         return "anuncio/anuncio-new";
     }
     @PostMapping("/anuncios/new")
     public String newAnuncio(@Valid Anuncio anuncio,
                              BindingResult bindingResult,
                              Model model,
-                             @RequestParam(value = "archivosFotos", required = false) List<MultipartFile> fotos) {
+                             @RequestParam(value = "archivosFotos", required = false) List<MultipartFile> fotos,
+                             @RequestParam(value = "categorias", required = false) List<Long> categorias) {
         if (bindingResult.hasErrors()) {
             return "anuncio/anuncio-new";
         }
@@ -105,9 +110,11 @@ public class AnuncioController {
             fotoAnuncioService.guardarFotos(fotos, anuncio);
         }catch (IllegalArgumentException ex) {
             //model.addAttribute("mensaje", ex.getMessage());
+            model.addAttribute("categorias", this.categoriaService.findAll());
             return "anuncio/anuncio-new";
         }
         //Guardar anuncio
+        anuncio.setCategorias(this.categoriaService.findByIds(categorias));
         anuncioService.saveAnuncio(anuncio);
         return "redirect:/";
     }

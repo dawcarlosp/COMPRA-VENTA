@@ -1,7 +1,6 @@
 .foto-container {
     display: flex; /* Para alinear las capas horizontalmente */
     flex-wrap: wrap; /* Para permitir que las capas salten a la siguiente línea */
-    gap: 10px;
 }
 
 .foto {
@@ -33,11 +32,12 @@
     cursor: pointer;
     overflow: hidden; /* Para ajustar la imagen al tamaño de la caja */
     position: relative;
+    border-radius: 10%;
 }
 .fotoProductoInsert img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     position: absolute;
     top: 0;
     left: 0;

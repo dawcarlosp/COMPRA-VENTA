@@ -8,7 +8,9 @@
 <main class="container d-flex flex-column align-items-center mb-3">
     <!-- Fragmento principal que itera los anuncios -->
     <div th:each="anuncio : ${anuncios}" class="w-50 d-flex flex-column align-items-center border border-info rounded-5 mt-2">
-        <img th:src="@{'imagesAnuncios/'+${anuncio.getPrimeraFoto().getNombre()}}" class="w-50 mt-5 rounded-4">
+
+            <img th:src="@{'imagesAnuncios/'+${anuncio.getPrimeraFoto().getNombre()}}" class="w-50 mt-5 rounded-4">
+    
         <h3 th:text="${anuncio.titulo}"></h3>
         <p th:text="${anuncio.precio} + '€'"></p>
             <a th:href="@{/anuncios/view/{id}(id=${anuncio.id})}"

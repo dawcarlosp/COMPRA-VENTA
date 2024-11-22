@@ -34,15 +34,20 @@ public class Anuncio {
     private List<FotoAnuncio> fotosAnuncio = new ArrayList<>();
     @ManyToOne(targetEntity = Usuario.class)
     private Usuario usuario;
-
     @ManyToMany
     @JoinTable(
             name = "anuncio_categoria", // Nombre de la tabla intermedia
             joinColumns = @JoinColumn(name = "anuncio_id"), // Columna que referencia a la tabla Anuncio
             inverseJoinColumns = @JoinColumn(name = "categoria_id") // Columna que referencia a la tabla Categoria
     )
-    private List<Categoria> categorias = new ArrayList<>();;
+    private List<Categoria> categorias = new ArrayList<>();
     public FotoAnuncio getPrimeraFoto(){
-        return  fotosAnuncio.get(0);
+        FotoAnuncio fotoAnuncio = new FotoAnuncio();
+        fotoAnuncio.setNombre("default.png");
+        if(!fotosAnuncio.isEmpty()){
+            return  fotosAnuncio.get(0);
+        }else{
+            return fotoAnuncio;
+        }
     }
 }

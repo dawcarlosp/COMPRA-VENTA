@@ -22,18 +22,24 @@
 <body class="d-flex flex-column align-items-center">
 <h3 th:text="${anuncio.titulo}"></h3>
 <p th:text="${anuncio.descripcion}"></p>
-<div id="carouselExampleCaptions" class="carousel slide mt-2">
+<div id="carouselExampleCaptions" class="carousel slide mt-2" data-bs-ride="carousel">
+    <!-- Indicadores dinámicos -->
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" th:each="foto, iterStat : ${fotos}"
+                th:data-bs-target="'#carouselExampleCaptions'"
+                th:data-bs-slide-to="${iterStat.index}"
+                th:classappend="${iterStat.index == 0} ? 'active' : ''"
+                aria-current="true"
+                aria-label="Slide ${iterStat.index + 1}"></button>
     </div>
+    <!-- Imágenes dinámicas -->
     <div class="carousel-inner">
         <div th:each="foto, iterStat : ${fotos}"
              th:classappend="${iterStat.index == 0} ? 'carousel-item active' : 'carousel-item'">
             <img th:src="@{/imagesAnuncios/{nombre}(nombre=${foto.nombre})}" class="d-block w-100" alt="Foto anuncio">
         </div>
     </div>
+    <!-- Controles de navegación -->
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Anterior</span>
@@ -44,7 +50,7 @@
     </button>
 </div>
 <p>Anuncio publicado por <b th:text="${anuncio.getUsuario().getNombre()}"></b>
-<br>El día: <i th:text="${anuncio.getFechaCreacion()}"></i></p>
+    <br>El día: <i th:text="${anuncio.getFechaCreacion()}"></i></p>
 <div th:if="${anuncio.getUsuario().equals(usuario)}">
     <a th:href="@{/anuncios/edit/{id}(id=${anuncio.id})}"><i class="bi bi-pencil-square fs-1 text-primary"></i></a>
     <a th:href="@{/anuncios/del/{id}(id=${anuncio.id})}" onclick="return seguroEliminar()"><i class="bi bi-trash3-fill fs-1 text-danger"></i></a>

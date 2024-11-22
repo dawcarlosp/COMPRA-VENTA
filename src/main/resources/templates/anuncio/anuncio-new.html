@@ -24,19 +24,58 @@
   <div class="mb-3">
     <textarea  class="form-control" id="descripcion" name="descripcion" placeholder="descripcion"></textarea>
   </div>
+    <div class="btn-group d-flex flex-wrap gap-1" role="group" aria-label="Basic checkbox toggle button group">
+      <div th:each="categoria : ${categorias}">
+        <!-- Checkbox -->
+        <input type="checkbox"
+               class="btn-check"
+               th:id="'btncheck__' + ${categoria.id}"
+               name="categorias"
+               th:value="${categoria.id}"
+               autocomplete="off">
 
-  <div class="contenedorFotosProductosInsert" id="fotoContainer">
-    <div class="fotoProductoInsert" onclick="triggerFileInput(this)">
-      <input type="file" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
+        <!-- Label styled as a button -->
+        <label class="btn btn-outline-primary"
+               th:for="'btncheck__' + ${categoria.id}"
+               th:text="${categoria.nombre}"></label>
+      </div>
+  </div>
+  <div class="contenedorFotosProductosInsert" >
+    <div class="fotoProductoInsert" th:style="'background-image: url(' + ${fotoDefault} + ')'" onclick="triggerFileInput(this)">
+      <input type="file" name="archivosFotos" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
+    </div>
+    <div class="fotoProductoInsert" th:style="'background-image: url(' + ${fotoDefault} + ')'" onclick="triggerFileInput(this)">
+      <input type="file" name="archivosFotos" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
+    </div>
+    <div class="fotoProductoInsert" th:style="'background-image: url(' + ${fotoDefault} + ')'" onclick="triggerFileInput(this)">
+      <input type="file" name="archivosFotos" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
+    </div>
+    <div class="fotoProductoInsert" th:style="'background-image: url(' + ${fotoDefault} + ')'" onclick="triggerFileInput(this)">
+      <input type="file" name="archivosFotos" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
+    </div>
+    <div class="fotoProductoInsert" th:style="'background-image: url(' + ${fotoDefault} + ')'" onclick="triggerFileInput(this)">
+      <input type="file" name="archivosFotos" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
+    </div>
+    <div class="fotoProductoInsert" th:style="'background-image: url(' + ${fotoDefault} + ')'" onclick="triggerFileInput(this)">
+      <input type="file" name="archivosFotos" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
+    </div>
+    <div class="fotoProductoInsert" th:style="'background-image: url(' + ${fotoDefault} + ')'" onclick="triggerFileInput(this)">
+      <input type="file" name="archivosFotos" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
+    </div>
+    <div class="fotoProductoInsert" th:style="'background-image: url(' + ${fotoDefault} + ')'" onclick="triggerFileInput(this)">
+      <input type="file" name="archivosFotos" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
+    </div>
+    <div class="fotoProductoInsert" th:style="'background-image: url(' + ${fotoDefault} + ')'" onclick="triggerFileInput(this)">
+      <input type="file" name="archivosFotos" class="file-input" accept="image/jpeg, image/png, image/gif, image/webp" onchange="previewImage(this)">
     </div>
   </div>
-  
+
   <div class="mt-2 d-flex flex-column">
     <button type="submit" class="btn btn-primary w-25" value="Log in">Publicar</button>
     <a th:href="@{/}" class="btn btn-success mt-2 w-25" value="Log in"><i class="bi bi-arrow-return-left"></i></a>
   </div>
 </form>
+</body>
 <script th:src="@{/js/anuncio-new.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
 </html>

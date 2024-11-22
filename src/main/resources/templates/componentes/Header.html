@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,16 +27,16 @@
             </option>
           </select>
         </li>
-        <li class="nav-item active" th:if="${!#authentication.name.equalsIgnoreCase('anonymousUser')}">
+        <li class="nav-item active" th:block sec:authorize="isAuthenticated()">
           <a class="btn btn-primary mx-1" th:href="@{/misAnuncios}">Mis anuncios</a>
         </li>
       </ul>
       <ul class="navbar-nav w-100 align-items-center justify-content-center">
-        <li th:if="${#authentication.name.equalsIgnoreCase('anonymousUser')}">
+        <li th:block sec:authorize="isAnonymous()">
           <form th:replace="~{componentes/Login :: login}"></form>
         </li>
 
-        <li th:if="${!#authentication.name.equalsIgnoreCase('anonymousUser')}">
+        <li th:block sec:authorize="isAuthenticated()">
           <div  th:replace="~{componentes/Bienvenido :: bienvenido}"></div>
         </li>
       </ul>

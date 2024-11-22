@@ -66,6 +66,8 @@ public class AnuncioController {
         Usuario usuario = this.usuarioService.getAutenticado();
         List<FotoAnuncio> fotos = anuncioRepository.findById(id).get().getFotosAnuncio();
         if(anuncio.isPresent() && usuario.getId() == anuncio.get().getUsuario().getId()) {
+            model.addAttribute("categorias", this.categoriaService.findAll());
+            model.addAttribute("fotoDefault", "/images/galeria.png");
             model.addAttribute("anuncio", anuncio.get());
             model.addAttribute("fotos", fotos);
             return "anuncio/anuncio-edit";
@@ -74,15 +76,21 @@ public class AnuncioController {
         }
     }
     @PostMapping("anuncios/edit/{id}")
-    public String editAnuncio(@PathVariable Long id,@Valid Anuncio anuncio, BindingResult bindingResult, Model model) {
+    public String editAnuncio(@PathVariable Long id,@Valid Anuncio anuncio, BindingResult bindingResult, Model model,
+                              @RequestParam(value = "categorias", required = false) List<Long> categorias) {
         List<FotoAnuncio> fotos = anuncioRepository.findById(id).get().getFotosAnuncio();
         Anuncio auxiliar = this.anuncioRepository.findById(id).get();
         anuncio.setFechaCreacion(auxiliar.getFechaCreacion());
         if(bindingResult.hasErrors()) {
+            model.addAttribute("categorias", this.categoriaService.findAll());
+            model.addAttribute("fotoDefault", "/images/galeria.png");
             model.addAttribute("fotos",fotos);
             model.addAttribute("anuncio", anuncio);
             return "anuncio/anuncio-edit";
         }else{
+            if(categorias != null){
+                anuncio.setCategorias(this.categoriaService.findByIds(categorias));
+            }
             this.anuncioService.editAnuncio(anuncio);
             return "redirect:/";
         }
@@ -103,6 +111,8 @@ public class AnuncioController {
                              @RequestParam(value = "archivosFotos", required = false) List<MultipartFile> fotos,
                              @RequestParam(value = "categorias", required = false) List<Long> categorias) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categorias", this.categoriaService.findAll());
+            model.addAttribute("fotoDefault", "/images/galeria.png");
             return "anuncio/anuncio-new";
         }
         //Guardar fotos
@@ -114,7 +124,9 @@ public class AnuncioController {
             return "anuncio/anuncio-new";
         }
         //Guardar anuncio
-        anuncio.setCategorias(this.categoriaService.findByIds(categorias));
+        if(categorias != null){
+            anuncio.setCategorias(this.categoriaService.findByIds(categorias));
+        }
         anuncioService.saveAnuncio(anuncio);
         return "redirect:/";
     }

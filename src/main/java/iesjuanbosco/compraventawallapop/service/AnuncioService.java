@@ -34,6 +34,7 @@ public class AnuncioService {
         this.anuncioRepository.save(anuncio);
     }
     public void editAnuncio(Anuncio anuncio){
+        anuncio.setUsuario(this.usuarioService.getAutenticado());
         this.anuncioRepository.save(anuncio);
     }
     public void deleteAnuncioById(@PathVariable Long id){

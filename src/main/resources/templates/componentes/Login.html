@@ -7,6 +7,7 @@
 </head>
 <body>
     <form class="d-flex justify-content-between" th:action="@{/}" method="post" th:fragment="login">
+        <span th:if="${param.errorLogin}" class="alert alert-warning mx-1">Usuario o contraseña no válidos.</span>
         <div class=" px-2">
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" placeholder="email">
         </div>

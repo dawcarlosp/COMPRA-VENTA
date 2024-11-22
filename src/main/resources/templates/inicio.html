@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
 </head>
 <body class="min-vh-100">
 <header th:replace="~{componentes/Header :: header}" ></header>
-<div th:if="${!#authentication.name.equalsIgnoreCase('anonymousUser')}">
+<div th:block sec:authorize="isAuthenticated()" class="text-end">
     <a class="btn btn-success mt-1 m-lg-1" th:href="@{/anuncios/new}">Publicar Anuncio</a>
 </div>
 <main th:replace="~{componentes/Main :: main}"></main>

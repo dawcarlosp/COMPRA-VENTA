@@ -1,4 +1,4 @@
-const anuncios = document.querySelectorAll('.w-50.d-flex.flex-column.align-items-center.border.border-info.rounded-5.mt-2');
+const anuncios = document.querySelectorAll('.col-10.col-md-5.col-lg-5.m-1');
 anuncios.forEach(div => {div.addEventListener('click', function (){
     const link = this.querySelector('.d-none.ver-Anuncio');
         if(link){

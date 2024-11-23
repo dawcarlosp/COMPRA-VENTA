@@ -41,6 +41,7 @@ public class Anuncio {
             inverseJoinColumns = @JoinColumn(name = "categoria_id") // Columna que referencia a la tabla Categoria
     )
     private List<Categoria> categorias = new ArrayList<>();
+    private int contadorVistas = 0;
     public FotoAnuncio getPrimeraFoto(){
         FotoAnuncio fotoAnuncio = new FotoAnuncio();
         fotoAnuncio.setNombre("default.png");

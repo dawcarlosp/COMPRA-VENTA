@@ -44,6 +44,11 @@ public class Usuario implements UserDetails {
     private String poblacion;
     @OneToMany(targetEntity = Anuncio.class, cascade = CascadeType.ALL, mappedBy = "usuario")
     private List anuncios = new ArrayList();
+    @OneToMany(mappedBy = "remitente", cascade = CascadeType.ALL)
+    private List<Mensaje> mensajesEnviados;
+
+    @OneToMany(mappedBy = "destinatario", cascade = CascadeType.ALL)
+    private List<Mensaje> mensajesRecibidos;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()

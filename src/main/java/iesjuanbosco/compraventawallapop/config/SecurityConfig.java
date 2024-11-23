@@ -49,8 +49,12 @@ public class SecurityConfig {
                         .invalidateHttpSession(true) // Invalida la sesión
                         .deleteCookies("JSESSIONID") // Borra las cookies de sesión
                         .permitAll()
-                ).rememberMe(rememberMe -> rememberMe
+                )
+                .rememberMe(rememberMe -> rememberMe
                 .key("uniqueAndSecret") // Clave para cifrar las cookies
+                        .rememberMeParameter("remember-me")
+                        .useSecureCookie(true) // Usar cookies seguras si es necesario
+                        .alwaysRemember(true)
                 .tokenValiditySeconds(5 * 24 * 60 * 60) // Duración de la cookie en segundos (5 días)
                 .userDetailsService(customUserDetailsService) // Servicio para cargar detalles del usuario
         ); ;

@@ -8,6 +8,10 @@ import iesjuanbosco.compraventawallapop.service.AnuncioService;
 import iesjuanbosco.compraventawallapop.service.CategoriaService;
 import iesjuanbosco.compraventawallapop.service.FotoAnuncioService;
 import iesjuanbosco.compraventawallapop.service.UsuarioService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,23 +48,47 @@ public class AnuncioController {
         return "redirect:/";
     }
     @GetMapping("/anuncios/view/{id}")
-    public String viewAnuncio(Model model,@PathVariable Long id){
-        Optional<Anuncio> anuncio = this.anuncioRepository.findById(id);
-        Usuario usuario = this.usuarioService.getAutenticado();
-        if(anuncio.isPresent()){
-            model.addAttribute("anuncio", anuncio.get());
-            model.addAttribute("fotos", anuncio.get().getFotosAnuncio());
-            if(usuario != null) {
-                model.addAttribute("usuario", usuario);
-            }else{
-                model.addAttribute("usuario", new Usuario());
-            }
-            return "anuncio/anuncio-view";
-        }else{
-            return "redirect:/";
-        }
+    public String viewAnuncio(Model model, @PathVariable Long id, HttpSession session) {
+        // Buscar el anuncio
+        Optional<Anuncio> anuncioOpt = this.anuncioRepository.findById(id);
+        if (anuncioOpt.isPresent()) {
+            Anuncio anuncio = anuncioOpt.get();
+            // Obtener el usuario autenticado
+            Usuario usuario = this.usuarioService.getAutenticado();
 
+            // Comprobar si el usuario ha visitado el anuncio previamente
+            if (usuario != null) {
+                // Revisar si el usuario ya ha visitado este anuncio
+                List<Long> anunciosVisitados = (List<Long>) session.getAttribute("anunciosVisitados");
+                if (anunciosVisitados == null) {
+                    anunciosVisitados = new ArrayList<>();
+                    session.setAttribute("anunciosVisitados", anunciosVisitados);
+                }
+
+                // Si el usuario no ha visitado este anuncio antes, se incrementa el contador
+                if (!anunciosVisitados.contains(id)) {
+                    anunciosVisitados.add(id); // Marcar este anuncio como visitado por el usuario
+                    anuncio.setContadorVistas(anuncio.getContadorVistas() + 1); // Incrementar contador de visitas
+                    this.anuncioRepository.save(anuncio); // Guardar el anuncio con el contador actualizado
+                }
+            } else {
+                // Si no está autenticado, incrementamos las visitas directamente
+                anuncio.setContadorVistas(anuncio.getContadorVistas() + 1);
+                this.anuncioRepository.save(anuncio); // Guardamos el anuncio con el contador actualizado
+            }
+
+            // Preparar la vista
+            model.addAttribute("anuncio", anuncio);
+            model.addAttribute("fotos", anuncio.getFotosAnuncio());
+            model.addAttribute("usuario", usuario != null ? usuario : new Usuario());
+
+            return "anuncio/anuncio-view";  // Página que muestra los detalles del anuncio
+        } else {
+            return "redirect:/";  // Redirigir al inicio si el anuncio no existe
+        }
     }
+
+
     @GetMapping("/anuncios/edit/{id}")
     public String editAnuncioView(@PathVariable Long id, Model model) {
         Optional<Anuncio> anuncio = anuncioRepository.findById(id);

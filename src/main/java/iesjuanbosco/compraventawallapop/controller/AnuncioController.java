@@ -52,29 +52,10 @@ public class AnuncioController {
     @GetMapping("/anuncios/view/{id}")
     public String viewAnuncio(Model model, Principal principal, @PathVariable Long id, HttpSession session) {
         Optional<Anuncio> anuncioOpt = this.anuncioRepository.findById(id);
-
         if (anuncioOpt.isPresent()) {
             Anuncio anuncio = anuncioOpt.get();
             model.addAttribute("anuncio", anuncio);
-
-            if (principal != null) {
-                Usuario remitente = this.usuarioService.getUsuarioByUsername(principal.getName()).get();
-                Usuario destinatario = anuncio.getUsuario();
-
-                if (remitente.equals(destinatario)) {
-                    // Usuario autenticado es el propietario
-                    List<Mensaje> mensajes = this.mensajeService.getMensajesParaPropietario(anuncio, destinatario);
-                    model.addAttribute("mensajes", mensajes);
-                } else {
-                    // Usuario autenticado es un interesado
-                    List<Mensaje> mensajes = this.mensajeService.chat(anuncio, remitente, destinatario);
-                    model.addAttribute("mensajes", mensajes);
-                }
-
-                model.addAttribute("a", principal.getName());
-            }
-
-            // Resto del código relacionado con visitas al anuncio...
+            model.addAttribute("fotos", anuncio.getFotosAnuncio());
             return "anuncio/anuncio-view";
         } else {
             return "redirect:/";

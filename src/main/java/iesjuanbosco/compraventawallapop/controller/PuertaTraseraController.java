@@ -188,11 +188,11 @@ public class PuertaTraseraController {
         fotosAnuncio.add(f4);
         fotosAnuncio.add(f5);
         List<FotoAnuncio> fotosAnuncio2 = new ArrayList<>();
-        FotoAnuncio f6 = FotoAnuncio.builder().nombre("KTM.png").anuncio(a2).build();
-        FotoAnuncio f7 = FotoAnuncio.builder().nombre("KTM.png").anuncio(a2).build();
-        FotoAnuncio f8 = FotoAnuncio.builder().nombre("KTM.png").anuncio(a2).build();
-        FotoAnuncio f9 = FotoAnuncio.builder().nombre("KTM.png").anuncio(a2).build();
-        FotoAnuncio f10 = FotoAnuncio.builder().nombre("KTM.png").anuncio(a2).build();
+        FotoAnuncio f6 = FotoAnuncio.builder().nombre("KTM1.png").anuncio(a2).build();
+        FotoAnuncio f7 = FotoAnuncio.builder().nombre("KTM2.png").anuncio(a2).build();
+        FotoAnuncio f8 = FotoAnuncio.builder().nombre("KTM3.png").anuncio(a2).build();
+        FotoAnuncio f9 = FotoAnuncio.builder().nombre("KTM4.png").anuncio(a2).build();
+        FotoAnuncio f10 = FotoAnuncio.builder().nombre("KTM5.png").anuncio(a2).build();
         fotosAnuncio2.add(f6);
         fotosAnuncio2.add(f7);
         fotosAnuncio2.add(f8);

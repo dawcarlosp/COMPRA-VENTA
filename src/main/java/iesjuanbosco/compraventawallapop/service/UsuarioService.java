@@ -30,6 +30,9 @@ public class UsuarioService {
     public Optional<Usuario> getUsuarioByUsername(String username){
         return this.usuarioRepository.findByEmail(username);
     }
+    public Optional<Usuario> getUsuarioById(Long id){
+        return this.usuarioRepository.findById(id);
+    }
     public Usuario getAutenticado() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {

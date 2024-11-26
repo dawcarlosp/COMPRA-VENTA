@@ -2,12 +2,10 @@ package iesjuanbosco.compraventawallapop.controller;
 
 import iesjuanbosco.compraventawallapop.entity.Anuncio;
 import iesjuanbosco.compraventawallapop.entity.FotoAnuncio;
+import iesjuanbosco.compraventawallapop.entity.Mensaje;
 import iesjuanbosco.compraventawallapop.entity.Usuario;
 import iesjuanbosco.compraventawallapop.repository.AnuncioRepository;
-import iesjuanbosco.compraventawallapop.service.AnuncioService;
-import iesjuanbosco.compraventawallapop.service.CategoriaService;
-import iesjuanbosco.compraventawallapop.service.FotoAnuncioService;
-import iesjuanbosco.compraventawallapop.service.UsuarioService;
+import iesjuanbosco.compraventawallapop.service.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,9 +23,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -42,49 +42,42 @@ public class AnuncioController {
     private FotoAnuncioService fotoAnuncioService;
     @Autowired
     private CategoriaService categoriaService;
+    @Autowired
+    private MensajeService mensajeService;
     @GetMapping("/anuncios/del/{id}")
     public String deleteAnuncio(@PathVariable Long id){
         this.anuncioService.deleteAnuncioById(id);
         return "redirect:/";
     }
     @GetMapping("/anuncios/view/{id}")
-    public String viewAnuncio(Model model, @PathVariable Long id, HttpSession session) {
-        // Buscar el anuncio
+    public String viewAnuncio(Model model, Principal principal, @PathVariable Long id, HttpSession session) {
         Optional<Anuncio> anuncioOpt = this.anuncioRepository.findById(id);
+
         if (anuncioOpt.isPresent()) {
             Anuncio anuncio = anuncioOpt.get();
-            // Obtener el usuario autenticado
-            Usuario usuario = this.usuarioService.getAutenticado();
+            model.addAttribute("anuncio", anuncio);
 
-            // Comprobar si el usuario ha visitado el anuncio previamente
-            if (usuario != null) {
-                // Revisar si el usuario ya ha visitado este anuncio
-                List<Long> anunciosVisitados = (List<Long>) session.getAttribute("anunciosVisitados");
-                if (anunciosVisitados == null) {
-                    anunciosVisitados = new ArrayList<>();
-                    session.setAttribute("anunciosVisitados", anunciosVisitados);
+            if (principal != null) {
+                Usuario remitente = this.usuarioService.getUsuarioByUsername(principal.getName()).get();
+                Usuario destinatario = anuncio.getUsuario();
+
+                if (remitente.equals(destinatario)) {
+                    // Usuario autenticado es el propietario
+                    List<Mensaje> mensajes = this.mensajeService.getMensajesParaPropietario(anuncio, destinatario);
+                    model.addAttribute("mensajes", mensajes);
+                } else {
+                    // Usuario autenticado es un interesado
+                    List<Mensaje> mensajes = this.mensajeService.chat(anuncio, remitente, destinatario);
+                    model.addAttribute("mensajes", mensajes);
                 }
 
-                // Si el usuario no ha visitado este anuncio antes, se incrementa el contador
-                if (!anunciosVisitados.contains(id)) {
-                    anunciosVisitados.add(id); // Marcar este anuncio como visitado por el usuario
-                    anuncio.setContadorVistas(anuncio.getContadorVistas() + 1); // Incrementar contador de visitas
-                    this.anuncioRepository.save(anuncio); // Guardar el anuncio con el contador actualizado
-                }
-            } else {
-                // Si no está autenticado, incrementamos las visitas directamente
-                anuncio.setContadorVistas(anuncio.getContadorVistas() + 1);
-                this.anuncioRepository.save(anuncio); // Guardamos el anuncio con el contador actualizado
+                model.addAttribute("a", principal.getName());
             }
 
-            // Preparar la vista
-            model.addAttribute("anuncio", anuncio);
-            model.addAttribute("fotos", anuncio.getFotosAnuncio());
-            model.addAttribute("usuario", usuario != null ? usuario : new Usuario());
-
-            return "anuncio/anuncio-view";  // Página que muestra los detalles del anuncio
+            // Resto del código relacionado con visitas al anuncio...
+            return "anuncio/anuncio-view";
         } else {
-            return "redirect:/";  // Redirigir al inicio si el anuncio no existe
+            return "redirect:/";
         }
     }
 

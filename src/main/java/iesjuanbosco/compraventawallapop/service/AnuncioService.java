@@ -33,6 +33,9 @@ public class AnuncioService {
         anuncio.setFechaCreacion(LocalDate.now());
         this.anuncioRepository.save(anuncio);
     }
+    public void saveAnuncio2(Anuncio anuncio){
+        this.anuncioRepository.save(anuncio);
+    }
     public void editAnuncio(Anuncio anuncio){
         anuncio.setUsuario(this.usuarioService.getAutenticado());
         this.anuncioRepository.save(anuncio);

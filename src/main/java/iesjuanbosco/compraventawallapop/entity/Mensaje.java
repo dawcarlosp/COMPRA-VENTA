@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -24,4 +26,10 @@ public class Mensaje {
     @ManyToOne
     @JoinColumn(name = "destinatario_id", nullable = false)
     private Usuario destinatario;
+    @Column(nullable = false)
+    private LocalDateTime fechaHora;
+
+    @ManyToOne
+    @JoinColumn(name = "anuncio_id", nullable = false)
+    private Anuncio anuncio;
 }

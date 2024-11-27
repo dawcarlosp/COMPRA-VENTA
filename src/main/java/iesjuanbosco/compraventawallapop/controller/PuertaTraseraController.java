@@ -132,9 +132,7 @@ public class PuertaTraseraController {
         LocalDate date2 = LocalDate.of(2020, 4, 7);
         Usuario usuario1 = this.usuarioService.getUsuarioById(1L).get();
         Usuario usuario2 = this.usuarioService.getUsuarioById(2L).get();
-        List<Long> ids = new ArrayList<>();
-        ids.add(1L);
-        List<Categoria> categorias = this.categoriaService.findByIds(ids);
+        List<Categoria> categorias = this.categoriaService.findByName("coches");
         Anuncio a = Anuncio.builder().titulo("BMV").descripcion("¡Deportivo y elegante! Motor turbo, interiores de piel, revisiones al día. Perfecto estado, ideal para disfrutar del lujo y la potencia. \uD83D\uDCDE ¡Escríbeme y ven a verlo!\n" +
                 "\n").precio(2500.0).fechaCreacion(date).contadorVistas(0).usuario(usuario1).categorias(categorias).build();
         Anuncio a2 = Anuncio.builder().titulo("Kia").descripcion("Súper cuidado, perfecto para ciudad. Bajo consumo, cámara de reversa y conectividad completa. ¡Como nuevo! \uD83D\uDE80 \uD83D\uDCE9 ¡Pregunta sin compromiso!").precio(6000.0).fechaCreacion(date2).contadorVistas(0).usuario(usuario2).categorias(categorias).build();
@@ -170,9 +168,7 @@ public class PuertaTraseraController {
         LocalDate date2 = LocalDate.of(2023, 7, 7);
         Usuario usuario1 = this.usuarioService.getUsuarioById(3L).get();
         Usuario usuario2 = this.usuarioService.getUsuarioById(4L).get();
-        List<Long> ids = new ArrayList<>();
-        ids.add(2L);
-        List<Categoria> categorias = this.categoriaService.findByIds(ids);
+        List<Categoria> categorias = this.categoriaService.findByName("motos");
         Anuncio a = Anuncio.builder().titulo("TGB").descripcion("¡Deportivo y elegante! Motor turbo, interiores de piel, revisiones al día. Perfecto estado, ideal para disfrutar del lujo y la potencia. \uD83D\uDCDE ¡Escríbeme y ven a verlo!\n" +
                 "\n").precio(2500.0).fechaCreacion(date).contadorVistas(0).usuario(usuario1).categorias(categorias).build();
         Anuncio a2 = Anuncio.builder().titulo("KTM").descripcion("Súper cuidado, perfecto para ciudad. Bajo consumo, cámara de reversa y conectividad completa. ¡Como nuevo! \uD83D\uDE80 \uD83D\uDCE9 ¡Pregunta sin compromiso!").precio(6000.0).fechaCreacion(date2).contadorVistas(0).usuario(usuario2).categorias(categorias).build();
@@ -208,9 +204,7 @@ public class PuertaTraseraController {
         LocalDate date2 = LocalDate.of(2024, 3, 7);
         Usuario usuario1 = this.usuarioService.getUsuarioById(5L).get();
         Usuario usuario2 = this.usuarioService.getUsuarioById(6L).get();
-        List<Long> ids = new ArrayList<>();
-        ids.add(3L);
-        List<Categoria> categorias = this.categoriaService.findByIds(ids);
+        List<Categoria> categorias = this.categoriaService.findByName("electronica");
         Anuncio a = Anuncio.builder().titulo("Samsung Galaxy watch 4 Classic").descripcion("Funciona perfectamente, Samsung Galaxy Watch 4 46mm Classic").precio(2500.0).fechaCreacion(date).contadorVistas(0).usuario(usuario1).categorias(categorias).build();
         Anuncio a2 = Anuncio.builder().titulo("Pokémon Oro original (Game Boy Color)").descripcion("Pokémon Oro original de Game Boy. Versión en español. Testeado y funcionando perfectamente. En muy buen estado.").precio(6000.0).fechaCreacion(date2).contadorVistas(0).usuario(usuario2).categorias(categorias).build();
         List<FotoAnuncio> fotosAnuncio = new ArrayList<>();

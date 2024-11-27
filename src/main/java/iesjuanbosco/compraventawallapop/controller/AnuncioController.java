@@ -52,10 +52,15 @@ public class AnuncioController {
     @GetMapping("/anuncios/view/{id}")
     public String viewAnuncio(Model model, Principal principal, @PathVariable Long id, HttpSession session) {
         Optional<Anuncio> anuncioOpt = this.anuncioRepository.findById(id);
+        Usuario usuario = null;
+        if(principal != null){
+            usuario = this.usuarioService.getUsuarioByUsername(principal.getName()).get();
+        }
         if (anuncioOpt.isPresent()) {
             Anuncio anuncio = anuncioOpt.get();
             model.addAttribute("anuncio", anuncio);
             model.addAttribute("fotos", anuncio.getFotosAnuncio());
+            model.addAttribute("usuario", usuario);
             return "anuncio/anuncio-view";
         } else {
             return "redirect:/";

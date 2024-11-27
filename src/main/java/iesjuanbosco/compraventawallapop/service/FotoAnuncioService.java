@@ -2,14 +2,13 @@ package iesjuanbosco.compraventawallapop.service;
 
 import iesjuanbosco.compraventawallapop.entity.Anuncio;
 import iesjuanbosco.compraventawallapop.entity.FotoAnuncio;
-import iesjuanbosco.compraventawallapop.entity.Usuario;
 import iesjuanbosco.compraventawallapop.repository.AnuncioRepository;
 import iesjuanbosco.compraventawallapop.repository.FotoAnuncioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,6 +21,7 @@ import java.util.UUID;
 
 @Service
 public class FotoAnuncioService {
+    private static final Logger logger = LoggerFactory.getLogger(FotoAnuncioService.class);
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
@@ -108,7 +108,8 @@ public class FotoAnuncioService {
         Optional<FotoAnuncio> fotoAnuncioOptional = fotoAnuncioRepository.findById(idFoto);
         if(fotoAnuncioOptional.isPresent()){
             FotoAnuncio fotoAnuncio = fotoAnuncioOptional.get();
-            Path archivoFoto = Paths.get(fotoAnuncio.getNombre());
+            Path archivoFoto = Paths.get("./uploads/imagesAnuncios/"+fotoAnuncio.getNombre());
+            logger.info(archivoFoto.toString());
             try {
                 Files.deleteIfExists(archivoFoto);
             } catch (IOException e) {

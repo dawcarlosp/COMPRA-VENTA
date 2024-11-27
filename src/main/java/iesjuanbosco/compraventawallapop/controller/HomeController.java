@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -29,6 +30,18 @@ public class HomeController {
     private AnuncioService anuncioService;
     @Autowired
     private CategoriaService categoriaService;
+    @GetMapping("/?errorLogin")
+    public String errorLogin(Model model,@RequestParam(defaultValue = "0") int pagina) {
+        Page<Anuncio> paginaAnuncios = this.anuncioService.listarPaginas(pagina, HomeController.TAMANIO_PAGINA);
+        model.addAttribute("categorias",this.categoriaService.findAll());
+        model.addAttribute("anuncios", paginaAnuncios.getContent());
+        model.addAttribute("paginaActual", pagina);
+        model.addAttribute("totalPaginas", paginaAnuncios.getTotalPages());
+        model.addAttribute("hasNext", paginaAnuncios.hasNext());
+        model.addAttribute("hasPrevious", paginaAnuncios.hasPrevious());
+        model.addAttribute("AnunciosTotales",this.anuncioService.findAll().size());
+        return "inicio";
+    }
     @GetMapping("/")
     public String inicio(Model model, @RequestParam(defaultValue = "0") int pagina){
         Page<Anuncio> paginaAnuncios = this.anuncioService.listarPaginas(pagina, HomeController.TAMANIO_PAGINA);
@@ -79,15 +92,16 @@ public class HomeController {
         return "redirect:/productos";
     }
     @GetMapping("/misAnuncios")
-    public String inicioAutenticado(Model model,  @RequestParam(defaultValue = "0") int pagina){
-        Page<Anuncio> paginaAnuncios = this.anuncioService.listarPaginasUsuario(this.usuarioService.getAutenticado(),pagina, HomeController.TAMANIO_PAGINA);
+    public String inicioAutenticado(Model model, @RequestParam(defaultValue = "0") int pagina, Principal principal){
+        Usuario usuario = this.usuarioService.getUsuarioByUsername(principal.getName()).get();
+        Page<Anuncio> paginaAnuncios = this.anuncioService.listarPaginasUsuario(usuario,pagina, HomeController.TAMANIO_PAGINA);
         model.addAttribute("anuncios", paginaAnuncios.getContent());
         model.addAttribute("categorias",this.categoriaService.findAll());
         model.addAttribute("paginaActual", pagina);
         model.addAttribute("totalPaginas", paginaAnuncios.getTotalPages());
         model.addAttribute("hasNext", paginaAnuncios.hasNext());
         model.addAttribute("hasPrevious", paginaAnuncios.hasPrevious());
-        model.addAttribute("usuario", this.usuarioService.getAutenticado());
+        model.addAttribute("usuario", usuario);
         model.addAttribute("AnunciosTotales",this.anuncioService.findAll().size());
         return "inicio";
     }

@@ -17,6 +17,7 @@ public class CategoriaService {
         return this.categoriaRepository.findAll();
     }
     public Optional<Categoria> findById(Long id){return categoriaRepository.findById(id);}
+    public List<Categoria> findByName(String name){return categoriaRepository.findAllByNombre(name);}
     public List<Categoria> findByIds(List<Long> ids){
         List<Categoria> categorias = new ArrayList<>();
         for (Long id : ids){

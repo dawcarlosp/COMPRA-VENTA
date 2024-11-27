@@ -13,6 +13,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNotFoundError(NoHandlerFoundException ex, Model model) {
         model.addAttribute("error", "La página solicitada no fue encontrada.");
-        return "404";  // Nombre del archivo errorBorrar.html en la carpeta templates
+        return "404";  // Nombre del archivo error.html en la carpeta templates
     }
 }

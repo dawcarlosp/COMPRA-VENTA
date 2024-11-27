@@ -1,36 +1,3 @@
 Manifest-Version: 1.0
 Main-Class: iesjuanbosco.compraventawallapop.App
-Class-Path: spring-aspects-6.1.14.jar spring-core-6.1.14.jar spring-boot
- -starter-jdbc-3.3.5.jar logback-classic-1.5.11.jar jul-to-slf4j-2.0.16.
- jar spring-security-web-6.3.4.jar istack-commons-runtime-4.1.2.jar jaka
- rta.annotation-api-2.1.1.jar spring-boot-starter-data-jpa-3.3.5.jar tom
- cat-embed-websocket-10.1.31.jar snakeyaml-2.2.jar spring-expression-6.1
- .14.jar spring-security-core-6.3.4.jar spring-boot-starter-json-3.3.5.j
- ar jackson-datatype-jdk8-2.17.2.jar unbescape-1.1.6.RELEASE.jar hiberna
- te-commons-annotations-6.0.6.Final.jar spring-jcl-6.1.14.jar spring-dat
- a-commons-3.3.5.jar spring-aop-6.1.14.jar spring-boot-starter-tomcat-3.
- 3.5.jar spring-boot-starter-thymeleaf-3.3.5.jar slf4j-api-2.0.16.jar by
- te-buddy-1.14.19.jar lombok-1.18.34.jar mysql-connector-j-8.3.0.jar jax
- b-core-4.0.5.jar jakarta.transaction-api-2.0.1.jar jackson-module-param
- eter-names-2.17.2.jar spring-boot-starter-3.3.5.jar spring-orm-6.1.14.j
- ar jackson-annotations-2.17.2.jar spring-data-jpa-3.3.5.jar jakarta.val
- idation-api-3.0.2.jar spring-beans-6.1.14.jar jakarta.activation-api-2.
- 1.3.jar classmate-1.7.0.jar angus-activation-2.0.2.jar jboss-logging-3.
- 5.3.Final.jar spring-boot-starter-validation-3.3.5.jar log4j-to-slf4j-2
- .23.1.jar jackson-datatype-jsr310-2.17.2.jar spring-boot-starter-loggin
- g-3.3.5.jar micrometer-observation-1.13.6.jar spring-boot-3.3.5.jar tom
- cat-embed-core-10.1.31.jar spring-boot-starter-web-3.3.5.jar logback-co
- re-1.5.11.jar micrometer-commons-1.13.6.jar jaxb-runtime-4.0.5.jar log4
- j-api-2.23.1.jar aspectjweaver-1.9.22.1.jar jakarta.persistence-api-3.1
- .0.jar spring-security-config-6.3.4.jar thymeleaf-extras-springsecurity
- 6-3.1.2.RELEASE.jar spring-boot-starter-aop-3.3.5.jar antlr4-runtime-4.
- 13.0.jar attoparser-2.0.7.RELEASE.jar jackson-core-2.17.2.jar spring-jd
- bc-6.1.14.jar spring-context-6.1.14.jar jakarta.xml.bind-api-4.0.2.jar 
- HikariCP-5.1.0.jar hibernate-validator-8.0.1.Final.jar jandex-3.1.2.jar
-  hibernate-core-6.5.3.Final.jar thumbnailator-0.4.8.jar jakarta.inject-
- api-2.0.1.jar spring-web-6.1.14.jar spring-boot-starter-security-3.3.5.
- jar jackson-databind-2.17.2.jar spring-webmvc-6.1.14.jar spring-boot-de
- vtools-3.3.5.jar thymeleaf-spring6-3.1.2.RELEASE.jar thymeleaf-3.1.2.RE
- LEASE.jar tomcat-embed-el-10.1.31.jar spring-boot-autoconfigure-3.3.5.j
- ar spring-security-crypto-6.3.4.jar txw2-4.0.5.jar spring-tx-6.1.14.jar
 

@@ -16,7 +16,11 @@ public interface AnuncioRepository extends JpaRepository <Anuncio,Long> {
     Page<Anuncio> findAllByOrderByFechaCreacionDesc(Pageable pageable);
     Page<Anuncio> findByUsuarioOrderByFechaCreacionDesc(Usuario usuario, Pageable pageable);
     Page<Anuncio> findByCategoriasOrderByFechaCreacionDesc(Categoria categoria, Pageable pageable);
-    @Query("SELECT a FROM Anuncio a WHERE a.titulo LIKE :filtro OR a.descripcion LIKE :filtro ORDER BY a.fechaCreacion DESC")
+    @Query("SELECT a FROM Anuncio a " +
+            "WHERE a.titulo LIKE CONCAT('%', :filtro, '%') " +
+            "OR a.descripcion LIKE CONCAT('%', :filtro, '%') " +
+            "OR a.titulo = :filtro " +
+            "ORDER BY a.fechaCreacion DESC")
     Page<Anuncio> buscarPorFiltro(@Param("filtro") String filtro, Pageable pageable);
 
 }

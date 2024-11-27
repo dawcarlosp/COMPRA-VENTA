@@ -64,8 +64,7 @@ public class AnuncioService {
     }
     public Page<Anuncio> listarPaginasFiltro(String filtro, int numeroPagina, int tamanioPagina){
         Pageable pageable =  PageRequest.of(numeroPagina, tamanioPagina);
-        String filtroF = '%' + filtro + '%';
-        return this.anuncioRepository.buscarPorFiltro(filtroF, pageable);
+        return this.anuncioRepository.buscarPorFiltro(filtro, pageable);
     }
     public List<Anuncio> findAll(){
         return this.anuncioRepository.findAll();

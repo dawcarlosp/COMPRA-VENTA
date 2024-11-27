@@ -134,8 +134,8 @@ public class PuertaTraseraController {
         Usuario usuario2 = this.usuarioService.getUsuarioById(2L).get();
         List<Categoria> categorias = this.categoriaService.findByName("coches");
         Anuncio a = Anuncio.builder().titulo("BMV").descripcion("¡Deportivo y elegante! Motor turbo, interiores de piel, revisiones al día. Perfecto estado, ideal para disfrutar del lujo y la potencia. \uD83D\uDCDE ¡Escríbeme y ven a verlo!\n" +
-                "\n").precio(2500.0).fechaCreacion(date).contadorVistas(0).usuario(usuario1).categorias(categorias).build();
-        Anuncio a2 = Anuncio.builder().titulo("Kia").descripcion("Súper cuidado, perfecto para ciudad. Bajo consumo, cámara de reversa y conectividad completa. ¡Como nuevo! \uD83D\uDE80 \uD83D\uDCE9 ¡Pregunta sin compromiso!").precio(6000.0).fechaCreacion(date2).contadorVistas(0).usuario(usuario2).categorias(categorias).build();
+                "\n").precio(2500.0).fechaCreacion(date).usuario(usuario1).categorias(categorias).build();
+        Anuncio a2 = Anuncio.builder().titulo("Kia").descripcion("Súper cuidado, perfecto para ciudad. Bajo consumo, cámara de reversa y conectividad completa. ¡Como nuevo! \uD83D\uDE80 \uD83D\uDCE9 ¡Pregunta sin compromiso!").precio(6000.0).fechaCreacion(date2).usuario(usuario2).categorias(categorias).build();
         List<FotoAnuncio> fotosAnuncio = new ArrayList<>();
         FotoAnuncio f1 = FotoAnuncio.builder().nombre("BMW1.png").anuncio(a).build();
         FotoAnuncio f2 = FotoAnuncio.builder().nombre("BMW2.png").anuncio(a).build();
@@ -170,8 +170,8 @@ public class PuertaTraseraController {
         Usuario usuario2 = this.usuarioService.getUsuarioById(4L).get();
         List<Categoria> categorias = this.categoriaService.findByName("motos");
         Anuncio a = Anuncio.builder().titulo("TGB").descripcion("¡Deportivo y elegante! Motor turbo, interiores de piel, revisiones al día. Perfecto estado, ideal para disfrutar del lujo y la potencia. \uD83D\uDCDE ¡Escríbeme y ven a verlo!\n" +
-                "\n").precio(2500.0).fechaCreacion(date).contadorVistas(0).usuario(usuario1).categorias(categorias).build();
-        Anuncio a2 = Anuncio.builder().titulo("KTM").descripcion("Súper cuidado, perfecto para ciudad. Bajo consumo, cámara de reversa y conectividad completa. ¡Como nuevo! \uD83D\uDE80 \uD83D\uDCE9 ¡Pregunta sin compromiso!").precio(6000.0).fechaCreacion(date2).contadorVistas(0).usuario(usuario2).categorias(categorias).build();
+                "\n").precio(2500.0).fechaCreacion(date).usuario(usuario1).categorias(categorias).build();
+        Anuncio a2 = Anuncio.builder().titulo("KTM").descripcion("Súper cuidado, perfecto para ciudad. Bajo consumo, cámara de reversa y conectividad completa. ¡Como nuevo! \uD83D\uDE80 \uD83D\uDCE9 ¡Pregunta sin compromiso!").precio(6000.0).fechaCreacion(date2).usuario(usuario2).categorias(categorias).build();
         List<FotoAnuncio> fotosAnuncio = new ArrayList<>();
         FotoAnuncio f1 = FotoAnuncio.builder().nombre("TGB1.png").anuncio(a).build();
         FotoAnuncio f2 = FotoAnuncio.builder().nombre("TGB2.png").anuncio(a).build();
@@ -205,8 +205,8 @@ public class PuertaTraseraController {
         Usuario usuario1 = this.usuarioService.getUsuarioById(5L).get();
         Usuario usuario2 = this.usuarioService.getUsuarioById(6L).get();
         List<Categoria> categorias = this.categoriaService.findByName("electronica");
-        Anuncio a = Anuncio.builder().titulo("Samsung Galaxy watch 4 Classic").descripcion("Funciona perfectamente, Samsung Galaxy Watch 4 46mm Classic").precio(2500.0).fechaCreacion(date).contadorVistas(0).usuario(usuario1).categorias(categorias).build();
-        Anuncio a2 = Anuncio.builder().titulo("Pokémon Oro original (Game Boy Color)").descripcion("Pokémon Oro original de Game Boy. Versión en español. Testeado y funcionando perfectamente. En muy buen estado.").precio(6000.0).fechaCreacion(date2).contadorVistas(0).usuario(usuario2).categorias(categorias).build();
+        Anuncio a = Anuncio.builder().titulo("Samsung Galaxy watch 4 Classic").descripcion("Funciona perfectamente, Samsung Galaxy Watch 4 46mm Classic").precio(2500.0).fechaCreacion(date).usuario(usuario1).categorias(categorias).build();
+        Anuncio a2 = Anuncio.builder().titulo("Pokémon Oro original (Game Boy Color)").descripcion("Pokémon Oro original de Game Boy. Versión en español. Testeado y funcionando perfectamente. En muy buen estado.").precio(6000.0).fechaCreacion(date2).usuario(usuario2).categorias(categorias).build();
         List<FotoAnuncio> fotosAnuncio = new ArrayList<>();
         FotoAnuncio f1 = FotoAnuncio.builder().nombre("galaxy1.png").anuncio(a).build();
         FotoAnuncio f2 = FotoAnuncio.builder().nombre("galaxy2.png").anuncio(a).build();

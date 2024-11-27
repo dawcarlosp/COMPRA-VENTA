@@ -58,6 +58,14 @@ public class AnuncioController {
         }
         if (anuncioOpt.isPresent()) {
             Anuncio anuncio = anuncioOpt.get();
+            if(usuario != null){
+                if(!anuncio.getVisitantes().contains(usuario) && !usuario.getAnunciosV().contains(anuncio)){
+                    anuncio.getVisitantes().add(usuario);
+                    this.anuncioRepository.save(anuncio);
+                    usuario.getAnunciosV().add(anuncio);
+                    this.usuarioService.save(usuario);
+                }
+            }
             model.addAttribute("anuncio", anuncio);
             model.addAttribute("fotos", anuncio.getFotosAnuncio());
             model.addAttribute("usuario", usuario);

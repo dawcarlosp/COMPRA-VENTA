@@ -43,7 +43,13 @@ public class Anuncio {
     private List<Categoria> categorias = new ArrayList<>();
     @OneToMany(mappedBy = "anuncio", cascade = CascadeType.ALL)
     private List<Mensaje> mensajes;
-    private int contadorVistas = 0;
+    @ManyToMany
+    @JoinTable(
+            name = "anuncio_visitante", // Nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "anuncio_id"), // Columna que referencia a la tabla Anuncio
+            inverseJoinColumns = @JoinColumn(name = "usuario_id") // Columna que referencia a la tabla Usuario
+    )
+    private List<Usuario> visitantes = new ArrayList<>();
     public FotoAnuncio getPrimeraFoto(){
         FotoAnuncio fotoAnuncio = new FotoAnuncio();
         fotoAnuncio.setNombre("default.png");

@@ -42,6 +42,9 @@ public class UsuarioService {
         }
         return null;
     }
+    public void save(Usuario usuario){
+        this.usuarioRepository.save(usuario);
+    }
     public boolean getAutenticadoEstado(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();

@@ -122,6 +122,12 @@
     background-color: rgb(46, 180, 160); /* Fondo ligeramente más oscuro */
     color: white; /* Mantener el color blanco para la lupa */
 }
+.custom-colorR {
+    color: rgb(56, 200, 180); /* Color blanco para la lupa */
+    border-radius: 10%; /* Bordes redondeados para hacer el fondo circular */
+    padding: 0.5rem; /* Espaciado interno para que el icono no esté pegado al borde */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Efecto de transición */
+}
 
 /* Definir el color personalizado para el botón */
 .btn-custom {
@@ -167,6 +173,28 @@
 .bg-custom:hover {
     background-color: rgb(46, 180, 160); /* Fondo ligeramente más oscuro al pasar el ratón */
     transition: background-color 0.3s ease-in-out; /* Efecto suave */
+}
+/* Clase personalizada para el borde */
+.border-custom {
+    border: 2px solid rgb(56, 200, 180); /* Borde de 2px con el color personalizado */
+}
+/* Estilo para un botón con borde personalizado */
+.btn-custom-outline {
+    border: 2px solid rgb(56, 200, 180); /* Borde de color personalizado */
+    color: rgb(56, 200, 180); /* Texto de color personalizado */
+    background-color: transparent; /* Fondo transparente */
+    padding: 0.5rem 1rem; /* Espaciado interno */
+    border-radius: 0.375rem; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño del texto */
+    text-align: center; /* Alineación del texto */
+    cursor: pointer; /* Cambia el cursor a un puntero */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Efecto de transición */
+}
+
+/* Efecto hover */
+.btn-custom-outline:hover {
+    background-color: rgb(56, 200, 180); /* Fondo con el color personalizado */
+    color: white; /* Texto blanco */
 }
 
 

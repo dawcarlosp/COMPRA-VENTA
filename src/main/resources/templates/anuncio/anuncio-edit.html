@@ -38,7 +38,7 @@
                    autocomplete="off" th:checked="${anuncio.categorias.contains(categoria)}"/>
 
             <!-- Label styled as a button -->
-            <label class="btn btn-outline-primary"
+            <label class="btn btn-outline-custom"
                    th:for="'btncheck__' + ${categoria.id}"
                    th:text="${categoria.nombre}"></label>
         </div>
@@ -54,8 +54,8 @@
         </div>
     </div>
     <br>
-    <input type="submit" value="modificar" class="btn btn-primary w-25">
-    <a th:href="@{/anuncios/view/{id}(id=${anuncio.id})}" class="btn btn-success mt-2 w-25" value="Log in"><i class="bi bi-arrow-return-left"></i></a>
+    <input type="submit" value="modificar" class="btn btn-custom w-25">
+    <a th:href="@{/anuncios/view/{id}(id=${anuncio.id})}" class="btn btn-customR mt-2 w-25" value="Log in"><i class="bi bi-arrow-return-left ">Volver</i></a>
 </form>
 <form th:action="@{/anuncios/edit/{id}/addfoto(id=${anuncio.id})}" method="post" enctype="multipart/form-data" id="formulario-add-foto">
     <input type="file" name="archivoFoto" class="file-input" id="nuevoArchivo">

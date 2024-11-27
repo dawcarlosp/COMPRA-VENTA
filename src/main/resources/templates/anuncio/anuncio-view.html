@@ -52,13 +52,12 @@
 <p>Anuncio publicado por <b th:text="${anuncio.getUsuario().getNombre()}"></b>
     <br>El día: <i th:text="${anuncio.getFechaCreacion()}"></i></p>
 <div th:if="${anuncio.getUsuario().equals(usuario)}">
-    <a th:href="@{/anuncios/edit/{id}(id=${anuncio.id})}"><i class="bi bi-pencil-square fs-1 text-primary"></i></a>
-    <a th:href="@{/anuncios/del/{id}(id=${anuncio.id})}" onclick="return seguroEliminar()"><i class="bi bi-trash3-fill fs-1 text-danger"></i></a>
+    <a th:href="@{/anuncios/edit/{id}(id=${anuncio.id})}"><i class="bi bi-pencil-square fs-1 custom-color"></i></a>
+    <a th:href="@{/anuncios/del/{id}(id=${anuncio.id})}" onclick="return seguroEliminar()"><i class="bi bi-trash3-fill fs-1 custom-colorR"></i></a>
 </div>
 <div th:text="${anuncio.getContadorVistas()} + ' veces visitado'">
 </div>
-<a th:href="@{/}" class="btn btn-success mt-2 mb-2 w-25" value="Log in"><i class="bi bi-arrow-return-left"></i></a>
-
+<a th:href="@{/}" class="btn btn-customR mt-2 mb-2 w-25" value="Log in"><i class="bi bi-arrow-return-left">Volver</i></a>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script th:src="@{/js/anuncio-view.js}"></script>

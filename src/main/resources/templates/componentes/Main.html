@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-10 col-md-3 col-lg-3 m-1 p-1" th:each="anuncio : ${anuncios}">
     <!-- Fragmento principal que itera los anuncios -->
-    <div  class="w-100 h-100 d-flex flex-column align-items-center justify-content-between border border-info rounded-5">
+    <div  class="w-100 h-100 d-flex flex-column align-items-center justify-content-between border-custom rounded-5">
 
             <img th:src="@{'imagesAnuncios/'+${anuncio.getPrimeraFoto().getNombre()}}" class="w-50 mt-5 rounded-4">
     
@@ -32,7 +32,7 @@
 
         <!-- Página siguiente -->
         <a th:if="${hasNext}"
-           th:href="@{/(pagina=${paginaActual + 1})}" class="btn btn-primary ms-2">Siguiente</a>
+           th:href="@{/(pagina=${paginaActual + 1})}" class="btn btn-custom ms-2">Siguiente</a>
     </div>
     <div th:text="'Anuncios publicados: ' + ${AnunciosTotales}">
     </div>

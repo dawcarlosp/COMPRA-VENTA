@@ -2,6 +2,7 @@ package iesjuanbosco.compraventawallapop.service;
 
 import iesjuanbosco.compraventawallapop.entity.Anuncio;
 import iesjuanbosco.compraventawallapop.entity.Categoria;
+import iesjuanbosco.compraventawallapop.entity.FotoAnuncio;
 import iesjuanbosco.compraventawallapop.entity.Usuario;
 import iesjuanbosco.compraventawallapop.repository.AnuncioRepository;
 
@@ -19,6 +20,8 @@ import java.util.Optional;
 
 @Service
 public class AnuncioService {
+    @Autowired
+    private FotoAnuncioService fotoAnuncioService;
     @Autowired
     private CategoriaService categoriaService;
     @Autowired
@@ -41,6 +44,9 @@ public class AnuncioService {
         this.anuncioRepository.save(anuncio);
     }
     public void deleteAnuncioById(@PathVariable Long id){
+        for(FotoAnuncio foto : this.anuncioRepository.findById(id).get().getFotosAnuncio()){
+            this.fotoAnuncioService.deleteFoto(foto.getId());
+        }
         this.anuncioRepository.deleteById(id);
     }
     public Page<Anuncio> listarPaginas(int numeroPagina, int tamanioPagina){

@@ -69,15 +69,14 @@ public class AnuncioController {
 
 
     @GetMapping("/anuncios/edit/{id}")
-    public String editAnuncioView(@PathVariable Long id, Model model) {
+    public String editAnuncioView(@PathVariable Long id, Model model, Principal principal) {
         Optional<Anuncio> anuncio = anuncioRepository.findById(id);
-        Usuario usuario = this.usuarioService.getAutenticado();
-        List<FotoAnuncio> fotos = anuncioRepository.findById(id).get().getFotosAnuncio();
+        Usuario usuario = this.usuarioService.getUsuarioByUsername(principal.getName()).get();
         if(anuncio.isPresent() && usuario.getId() == anuncio.get().getUsuario().getId()) {
             model.addAttribute("categorias", this.categoriaService.findAll());
             model.addAttribute("fotoDefault", "/images/galeria.png");
             model.addAttribute("anuncio", anuncio.get());
-            model.addAttribute("fotos", fotos);
+            model.addAttribute("fotos", anuncioRepository.findById(id).get().getFotosAnuncio());
             return "anuncio/anuncio-edit";
         }else{
             return "redirect:/";
